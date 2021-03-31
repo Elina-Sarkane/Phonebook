@@ -1,17 +1,17 @@
 import java.util.ArrayList;
-import java.util.List;
 
 public class Menu {
-    ArrayList<User> users = new ArrayList<User>();
-
-    public ArrayList<User> getAllUsers() {
-        return users;
-    }
+   private ArrayList<User> users = new ArrayList<User>();
 
     public String addUser(User user){
         this.users.add(user);
         return user.userName + " added successfully!";
     }
+
+    public ArrayList<User> getAllUsers() {
+        return users;
+    }
+
     public User getSingleUser(int userId){
         return this.users.get(userId);
     }

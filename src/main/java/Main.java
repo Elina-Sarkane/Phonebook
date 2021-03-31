@@ -1,11 +1,10 @@
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
 public class Main {
     Menu menu = new Menu();
     Scanner scanner = new Scanner(System.in);
-    User user = new User();
 
     public static void main(String[] args) {
         Main main = new Main();
@@ -58,15 +57,18 @@ public class Main {
                     break;
             }
 
-            System.out.println("\nPress 0 to continue\n");
+            System.out.print("\nPress 0 to continue\n");
             scanner.nextLine();
 
         } while (!contactInput.equalsIgnoreCase("9"));
+
         return;
     }
 
     void addUser() {
         System.out.println("\n Add contact\n");
+
+        User user = new User();
 
         System.out.println("Enter contact name:");
         user.userName = scanner.nextLine();
@@ -83,15 +85,14 @@ public class Main {
         System.out.println(message);
     }
     void viewAllUsers() {
-        List<User> allUsers = menu.getAllUsers();
+        ArrayList<User> allUsers = menu.getAllUsers();
         System.out.println("\t\t All available contacts\n");
-
         System.out.println("Id\tName\t  Phone Number \t\t    Email");
 
         int counter = 0;
-        for (User users : allUsers) {
-            System.out.println(counter + ". \t" + users.userName + " \t\t" + users.userPhone + "\t\t" + users.userEmail);
-            counter++;
+        for (User user: allUsers) {
+            System.out.println(counter + ". \t" + user.userName + " \t\t" + user.userPhone + "\t\t" + user.userEmail);
+            counter ++;
         }
     }
     void viewSingleUser() {
@@ -109,6 +110,7 @@ public class Main {
     void updateUser() {
         this.viewAllUsers();
 
+        User user = new User();
         System.out.println("\nUpdate contact\n");
 
         System.out.println("Enter contact ID:");
