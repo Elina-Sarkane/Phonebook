@@ -17,10 +17,10 @@ public class Main {
             System.out.println("Press 1 - To add new contact");
             System.out.println("Press 2 - To view all contacts");
             System.out.println("Press 3 - To view single contact");
-            System.out.println("Press 4 - To update contact");
-            System.out.println("Press 5 - To find contact by name");
-            System.out.println("Press 6 - To find contact by phone");
-            System.out.println("Press 7 - To find contact by email");
+            System.out.println("Press 4 - To find contact by name");
+            System.out.println("Press 5 - To find contact by phone");
+            System.out.println("Press 6 - To find contact by email");
+            System.out.println("Press 7 - To update contact");
             System.out.println("Press 8 - To remove contact");
             System.out.println("Press 9 - To quit");
 
@@ -38,16 +38,16 @@ public class Main {
                     viewSingleUser();
                     break;
                 case "4":
-                    updateUser();
-                    break;
-                case "5":
                     searchByName();
                     break;
-                case "6":
+                case "5":
                     searchByPhone();
                     break;
-                case "7":
+                case "6":
                     searchByEmail();
+                    break;
+                case "7":
+                    updateUser();
                     break;
                 case "8":
                     deleteUser();
@@ -74,7 +74,7 @@ public class Main {
         user.userName = scanner.nextLine();
 
         System.out.println("Enter contact phone number:");
-        user.userPhone = Integer.parseInt(scanner.nextLine());
+        user.userPhone = scanner.nextLine();
 
         System.out.println("Enter contact email:");
         user.userEmail = scanner.nextLine();
@@ -107,11 +107,42 @@ public class Main {
         System.out.println("Contact phone number: " + user.userPhone);
         System.out.println("Contact email: " + user.userEmail);
     }
-    void updateUser() {
-        this.viewAllUsers();
+    void searchByName(){
+        System.out.println("Search for name: ");
+        String name = scanner.nextLine();
+        System.out.println("Users found:  ");
 
+        for (User user: menu.getAllUsers()){
+            if (user.userName.contains(name)){
+                System.out.println(user.userName + "\t" + user.userPhone + "\t" + user.userEmail);
+            }
+        }
+    }
+    void searchByPhone(){
+        System.out.println("Search for phone number: ");
+        String phone = scanner.nextLine();
+        System.out.println("Users found:  ");
+
+        for (User user: menu.getAllUsers()){
+            if (user.userPhone.contains(phone)){
+                System.out.println(user.userName + "\t" + user.userPhone + "\t" + user.userEmail);
+            }
+        }
+    }
+    void searchByEmail(){
+        System.out.println("Search for email: ");
+        String email = scanner.nextLine();
+        System.out.println("Users found:  ");
+        for (User user: menu.getAllUsers()){
+            if (user.userEmail.contains(email)){
+                System.out.println(user.userName + "\t" + user.userPhone + "\t" + user.userEmail);
+            }
+        }
+    }
+    void updateUser() {
         User user = new User();
-        System.out.println("\nUpdate contact\n");
+        System.out.println("\nWhich contact do you want to update?\n");
+        this.viewAllUsers();
 
         System.out.println("Enter contact ID:");
         int userId = Integer.parseInt(scanner.nextLine());
@@ -120,19 +151,13 @@ public class Main {
         user.userName = scanner.nextLine();
 
         System.out.println("Enter new contact phone number: ");
-        user.userPhone = Integer.parseInt(scanner.nextLine());
+        user.userPhone = scanner.nextLine();
 
         System.out.println("Enter new contact email: ");
         user.userEmail = scanner.nextLine();
 
         String response = menu.updateUser(userId, user);
         System.out.println(response);
-    }
-    void searchByName(){
-    }
-    void searchByPhone(){
-    }
-    void searchByEmail(){
     }
     void deleteUser() {
         System.out.println("Which contact do you want to remove?");
@@ -142,6 +167,8 @@ public class Main {
         int userId = scanner.nextInt();
         String message = menu.removeUser(userId);
         System.out.println(message);
+
+        viewAllUsers();
     }
 }
 
